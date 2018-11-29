@@ -43,7 +43,8 @@
 	 * 常量
 	 */
 	var constants = {
-		closeBtnTemplate : '<button type="button" class="navTabsCloseBtn" title="关闭" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>',
+        refreshBtnTemplate : '<img alt="刷新" src="static/refresh.jpg" width="15px" height="15px"></img>',
+        closeBtnTemplate : '<button type="button" class="navTabsCloseBtn" title="关闭" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>',
 		//设置该样式的tab不会被关闭
 		noCloseClass : 'noclose',
 		//设置该样式不会被拖拽修改位置
@@ -71,7 +72,7 @@
 		
 		$('ul.nav-tabs a',$($tabs)).each(function(i,row){
 			var li = $(this).closest('li');
-			if(li && !$(li).hasClass(c.noCloseClass)) $(row).append(c.closeBtnTemplate);
+			if(li && !$(li).hasClass(c.noCloseClass)) $(row).append(c.refreshBtnTemplate).append(c.closeBtnTemplate);
 		});
 		$('div.tab-content div.tab-pane',$tabs).each(function(i,row){
 			openTabs.push($(this).attr('id'));
@@ -137,7 +138,7 @@
 				return;
 			}
 		}else openTabs = new Array();
-		$('ul.nav-tabs',$tabs).append('<li><a href="#'+tabId+'" data-toggle="tab">'+title+c.closeBtnTemplate+'</a></li>');
+		$('ul.nav-tabs',$tabs).append('<li><a href="#'+tabId+'" data-toggle="tab">'+title+c.refreshBtnTemplate+c.closeBtnTemplate+'</a></li>');;
 		var content = $('<div class="tab-pane" id="'+tabId+'"></div>');
 		$('div.tab-content',$tabs).append(content);
 		//切换到新增加的tab上
