@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <title>Starter Template - Materialize</title>
+
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link th:href="@{/plugins/materialize/css/materialize.css}" href="materialize/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  
+<link href="nth-tabs/css/nth-tabs.css" rel="stylesheet">
+    <link href="nth-tabs/css/nth-icons.css" rel="stylesheet">
+
+	<style>
+		.header, .main, .footer {
+		  padding-left: 300px;
+		}
+
+		@media only screen and (max-width : 992px) {
+		  .header, .main, .footer {
+			padding-left: 0;
+		  }
+		}
+	
+	</style>
+</head>
+<body>
+
+	 <div class="header">
+	   <nav>
+		<div class="nav-wrapper">
+		  <a href="javascript:toggleMenu()" class="brand-logo"><i class="material-icons">menu</i>Menu</a>
+		  <ul class="right hide-on-med-and-down">
+			<li><a href="sass.html"><i class="material-icons">search</i></a></li>
+			<li><a href="badges.html"><i class="material-icons">view_module</i></a></li>
+			<li><a href="collapsible.html"><i class="material-icons">refresh</i></a></li>
+			<li><a href="mobile.html"><i class="material-icons">more_vert</i></a></li>
+		  </ul>
+		</div>
+	  </nav>
+	</div>
+  
+  <ul id="slide-out" class="sidenav sidenav-fixed">
+    <li><div class="user-view">
+      <div class="background">
+        <img src="https://materializecss.com/images/office.jpg">
+      </div>
+      <a href="#user"><img class="circle" src="https://materializecss.com/images/yuna.jpg"></a>
+      <a href="#name"><span class="white-text name">John Doe</span></a>
+      <a href="#email"><span class="white-text email">jdandturk@gmail.com</span></a>
+    </div></li>
+    <li class="menu-li" mid="1" url="1.html" ><a href="#!"><i class="material-icons">cloud</i>First Link With Icon</a></li>
+    <li class="menu-li" mid="2" url="2.html" ><a href="#!">Second Link</a></li>
+    <li><div class="divider"></div></li>
+    <li><a class="subheader">Subheader</a></li>
+    <li class="menu-li" mid="3" url="3.html" ><a class="waves-effect" href="#!">Third Link With Waves</a></li>
+  </ul>
+      
+   <div class="main">
+	  <div class="container">
+		  <!--使用时只需此标签，class固定,id自己定义-->
+		<div class="nth-tabs" id="main-tabs">
+		</div>
+	  </div>
+    </div>
+
+ <div class="footer">
+	  <footer class="page-footer orange">
+		<div class="container">
+		  <div class="row">
+			<div class="col l6 s12">
+			  <h5 class="white-text">Company Bio</h5>
+			  <p class="grey-text text-lighten-4">We are a team of college students working on this project like it's our full time job. Any amount would help support and continue development on this project and is greatly appreciated.</p>
+
+
+			</div>
+			<div class="col l3 s12">
+			  <h5 class="white-text">Settings</h5>
+			  <ul>
+				<li><a class="white-text" href="#!">Link 1</a></li>
+				<li><a class="white-text" href="#!">Link 2</a></li>
+				<li><a class="white-text" href="#!">Link 3</a></li>
+				<li><a class="white-text" href="#!">Link 4</a></li>
+			  </ul>
+			</div>
+			<div class="col l3 s12">
+			  <h5 class="white-text">Connect</h5>
+			  <ul>
+				<li><a class="white-text" href="#!">Link 1</a></li>
+				<li><a class="white-text" href="#!">Link 2</a></li>
+				<li><a class="white-text" href="#!">Link 3</a></li>
+				<li><a class="white-text" href="#!">Link 4</a></li>
+			  </ul>
+			</div>
+		  </div>
+		</div>
+		<div class="footer-copyright">
+		  <div class="container">
+		  Made by <a class="orange-text text-lighten-3" href="http://materializecss.com">Materialize</a>
+		  </div>
+		</div>
+	  </footer>
+    </div>
+
+
+  <!--  Scripts-->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script th:src="@{/plugins/materialize/js/materialize.js}" src="materialize/js/materialize.js"></script>
+ <script src="https://cdn.bootcss.com/jquery.scrollbar/0.2.11/jquery.scrollbar.min.js"></script>
+
+<script src="nth-tabs/js/nth-tabs.js"></script>
+
+<script>
+
+// Or with jQuery
+
+	function toggleMenu(){
+		//$('.sidenav').sidenav('open');
+		//$('.header').css("padding-left","300px");
+		//$('.footer').css("padding-left","300px");
+		//$('.main').css("padding-left","300px");
+		
+	}
+  $(document).ready(function(){
+	
+    $('.sidenav').sidenav();
+  });
+  
+    var nthTabs;
+
+    $(function () {
+
+        //一个低门槛的演示,更多需求看源码
+
+        //基于bootstrap tab的自定义多标签的jquery实用插件
+        nthTabs = $("#main-tabs").nthTabs();
+        // 新建选项卡(URL地址)
+        $(".menu-li").on("click", function () {
+            var url = $(this).attr("url");
+            var text = $(this).text();
+            var id =  "nth-tab-" + $(this).attr("mid");
+
+            if(nthTabs.isExistsTab(id)){
+                nthTabs.locationTab(id);
+                nthTabs.setActTab(id);
+                return ;
+            }
+            nthTabs.addTab({
+                id:id,
+                title: text,
+                url: url,
+                active: true,
+                allowClose: true,
+                location: false,
+                fadeIn: true
+            });
+        });
+
+    });
+
+</script>
+
+  </body>
+</html>
