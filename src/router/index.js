@@ -8,6 +8,7 @@ import About from '@/components/About'
 import BreadCrumbs from '@/components/BreadCrumbs'
 import auth from '../auth'
 import Login from '@/components/Login'
+import Delivery from '@/components/Delivery'
 
 Vue.use(Router)
 
@@ -44,6 +45,10 @@ export default new Router({
       path: '/Login',
       name: 'Login',
       component: Login
+    },{
+      path: '/Delivery',
+      name: 'Delivery',
+      component: Delivery
     }
   ]
 })

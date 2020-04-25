@@ -59,6 +59,8 @@
           { title: 'Profile', icon: 'mdi-image', to: '/Profile'},
           { title: 'About', icon: 'mdi-help-box', to: '/About' },
           { title: 'BreadCrumbs', icon: 'mdi-help-box', to: '/BreadCrumbs' },
+          { title: 'Delivery', icon: 'mdi-help-box', to: '/Delivery' },
+
         ],
         color: 'teal',
         colors: [
