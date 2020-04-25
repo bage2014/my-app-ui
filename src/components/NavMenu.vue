@@ -11,7 +11,7 @@
         :right="right"
         :src="bg"
         absolute
-        dark
+        temporary
       >
         <v-list
           dense
@@ -50,6 +50,10 @@
     </v-card>
 </template>
 <script>
+
+  import { eventBus } from "../main.js";
+
+
   export default {
     data () {
       return {
@@ -80,6 +84,12 @@
       bg () {
         return this.background ? 'https://cdn.vuetifyjs.com/images/backgrounds/bg-2.jpg' : undefined
       },
+    },
+    created(){
+      let that = this;
+      eventBus.$on('toggleNavMenu',param => {
+         that.drawer = !that.drawer;
+      })
     },
   }
 </script>

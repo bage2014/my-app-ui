@@ -4,7 +4,7 @@
       color="primary"
       dark
     >
-      <v-app-bar-nav-icon></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon @click="toggleNavMenu()"></v-app-bar-nav-icon>
 
       <v-toolbar-title>Title</v-toolbar-title>
 
@@ -23,3 +23,20 @@
       </v-btn>
     </v-app-bar>
 </template>
+
+
+<script>
+
+import Vue from 'vue'
+import { eventBus } from "../main.js";
+import NavMenu from '@/components/NavMenu'
+import AppBar from '@/components/AppBar'
+
+export default {  
+  methods: {
+    toggleNavMenu: function(){
+      eventBus.$emit('toggleNavMenu', '')
+    },
+  },
+}
+</script>

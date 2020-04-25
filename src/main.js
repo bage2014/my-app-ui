@@ -7,6 +7,8 @@ import vuetify from '@/plugins/vuetify' // path to vuetify export
 
 Vue.config.productionTip = false
 
+export const eventBus = new Vue()
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
@@ -15,3 +17,4 @@ new Vue({
   components: { App },
   template: '<App/>'
 })
+
