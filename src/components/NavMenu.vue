@@ -1,8 +1,4 @@
 <template>
-  <v-card
-      height="800"
-      class="overflow-hidden"
-    >
       <v-navigation-drawer
         v-model="drawer"
         :color="color"
@@ -47,7 +43,6 @@
           </v-list-item>
         </v-list>
       </v-navigation-drawer>
-    </v-card>
 </template>
 <script>
 
@@ -74,7 +69,7 @@
           'red',
           'teal',
         ],
-        right: true,
+        right: false,
         miniVariant: false,
         expandOnHover: false,
         background: false,
