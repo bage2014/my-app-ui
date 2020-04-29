@@ -52,7 +52,7 @@
   export default {
     data () {
       return {
-        drawer: true,
+        drawer: false,
         items: [
           { title: 'Dashboard', icon: 'mdi-view-dashboard', to: '/' },
           { title: 'Profile', icon: 'mdi-image', to: '/Profile'},

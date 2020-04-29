@@ -22,7 +22,7 @@
       color="indigo"
       app
     >
-      <span class="white--text">&copy; 2019</span>
+      <span class="white--text">&copy; 2020</span>
     </v-footer>
   </v-app>
 </template>
@@ -52,3 +52,10 @@
     }
   }
 </script>
+
+<style scoped>
+  .fill-height {
+    margin-top: 48px;
+
+  }
+</style>
