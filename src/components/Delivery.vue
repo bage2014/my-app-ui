@@ -29,21 +29,21 @@
       </v-row>
     <v-timeline>
       <v-timeline-item
-        v-for="(year, i) in years"
+        v-for="(item, i) in timelines"
         :key="i"
-        :color="year.color"
+        :color="item.color"
         small
       >
-        <template v-slot:opposite>
+        <!--<template v-slot:opposite>
           <span
-            :class="`headline font-weight-bold ${year.color}--text`"
-            v-text="year.year"
+            :class="`headline font-weight-bold ${item.color}--text`"
+            v-text="item.time"
           ></span>
-        </template>
+        </template>-->
         <div class="py-4">
-          <h2 :class="`headline font-weight-light mb-4 ${year.color}--text`">Lorem ipsum</h2>
+          <h2 :class="`headline font-weight-light mb-4 ${item.color}--text`">{{item.time}}</h2>
           <div>
-            Lorem ipsum dolor sit amet, no nam oblique veritus. Commune scaevola imperdiet nec ut, sed euismod convenire principes at. Est et nobis iisque percipit, an vim zril disputando voluptatibus, vix an salutandi sententiae.
+            {{item.desc}}
           </div>
         </div>
       </v-timeline-item>
@@ -56,33 +56,13 @@
   import axios from "../plugins/axios.js";
 
   let companys = [];
+  let timelines = [];
   let companyValue = null;
   let companyNo = null;
 
   export default {
     data: () => ({
-      years: [
-        {
-          color: 'cyan',
-          year: '1960',
-        },
-        {
-          color: 'green',
-          year: '1970',
-        },
-        {
-          color: 'pink',
-          year: '1980',
-        },
-        {
-          color: 'amber',
-          year: '1990',
-        },
-        {
-          color: 'orange',
-          year: '2000',
-        },
-      ],
+      timelines: timelines,
       companys: companys,
       companyValue: companyValue,
       companyNo: companyNo
@@ -110,7 +90,7 @@
                 id: i+1 
                 });
             }
-            that.companys = result;
+            that.companys = result.reverse();
           }
         }).catch(function (error) {
             console.log(error);
@@ -133,7 +113,16 @@
         axios.post('/delivery/query',queryCondition).then(function (response) {
           console.log(response);
           if(response.code === 200){
-            
+            let result = [];
+            for (let i = 0; i < response.data.length; i++) {
+              const element = response.data[i];
+              result.push({ 
+                color: 'cyan',
+                time: element.acceptTime,
+                desc: element.acceptStation
+                });
+            }
+            that.timelines = result;
           }
         }).catch(function (error) {
             console.log(error);
