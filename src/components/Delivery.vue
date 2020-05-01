@@ -3,25 +3,27 @@
       <v-row align="center">
         <v-col cols="3">
           <v-autocomplete
-            :items="states"
-            :filter="customFilter"
+            v-model="companyValue"
+            :items="companys"
+            :filter="companyFilter"
             color="black"
             item-text="name"
-            label="State"            
+            label="Company"            
           ></v-autocomplete>
         </v-col>
         <v-col cols="7">
           <v-text-field
             color="black"
-            label="Name"
+            v-model="companyNo"
+            label="No"
           ></v-text-field>
         </v-col>
         <v-col cols="2">
           <v-btn
             color="success"
-            @click="save"
+            @click="query"
           >
-            Save
+            Query
           </v-btn>
         </v-col>
       </v-row>
@@ -50,6 +52,13 @@
 </template>
 
 <script>
+
+  import axios from "../plugins/axios.js";
+
+  let companys = [];
+  let companyValue = null;
+  let companyNo = null;
+
   export default {
     data: () => ({
       years: [
@@ -74,26 +83,67 @@
           year: '2000',
         },
       ],
-      states: [
-        { name: 'Florida', abbr: 'FL', id: 1 },
-        { name: 'Georgia', abbr: 'GA', id: 2 },
-        { name: 'Nebraska', abbr: 'NE', id: 3 },
-        { name: 'California', abbr: 'CA', id: 4 },
-        { name: 'New York', abbr: 'NY', id: 5 },
-      ],
+      companys: companys,
+      companyValue: companyValue,
+      companyNo: companyNo
     }),
     methods: {
-      customFilter (item, queryText, itemText) {
+      companyFilter (item, queryText, itemText) {
         const textOne = item.name.toLowerCase()
         const textTwo = item.abbr.toLowerCase()
         const searchText = queryText.toLowerCase()
-
         return textOne.indexOf(searchText) > -1 ||
           textTwo.indexOf(searchText) > -1
       },
-      save () {
-        console.log("todo");
+      refresh () {
+        let that = this;
+        axios.get('/delivery/companyPairs/load', {
+        }).then(function (response) {
+          console.log(response);
+          if(response.code === 200){
+            let result = [];
+            for (let i = 0; i < response.data.length; i++) {
+              const element = response.data[i];
+              result.push({ 
+                name: element.name, 
+                abbr: element.code, 
+                id: i+1 
+                });
+            }
+            that.companys = result;
+          }
+        }).catch(function (error) {
+            console.log(error);
+        });
+      },      
+      query () {        
+        let that = this;
+        console.log(that.companyValue + "；" + that.companyNo);
+        axios.get('/delivery/companyPairs/load', {
+            firstName: 'Fred',
+            lastName: 'Flintstone'
+        }).then(function (response) {
+          console.log(response);
+          if(response.code === 200){
+            let result = [];
+            for (let i = 0; i < response.data.length; i++) {
+              const element = response.data[i];
+              result.push({ 
+                name: element.name, 
+                abbr: element.code, 
+                id: i+1 
+                });
+            }
+            that.companys = result;
+          }
+        }).catch(function (error) {
+            console.log(error);
+        });
       },
     },
+
+    mounted() {
+      this.refresh()
+    }
   }
 </script>

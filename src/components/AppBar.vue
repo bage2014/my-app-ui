@@ -27,7 +27,6 @@
 
 <script>
 
-import Vue from 'vue'
 import { eventBus } from "../main.js";
 import NavMenu from '@/components/NavMenu'
 import AppBar from '@/components/AppBar'
