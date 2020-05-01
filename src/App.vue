@@ -9,14 +9,10 @@
     <app-bar >
     </app-bar>
 
-    <v-content app>
-      <v-container
-        class="fill-height"
-        fluid
-      >
-         <!-- If using vue-router -->
-          <router-view></router-view>
-      </v-container>
+    <v-content app >
+       <v-container class="main-content">
+         <router-view></router-view>  
+        </v-container>          
     </v-content>
     <v-footer
       color="indigo"
@@ -54,8 +50,7 @@
 </script>
 
 <style scoped>
-  .fill-height {
-    margin-top: 48px;
-
+  .main-content {
+    margin-top: 60px;
   }
 </style>

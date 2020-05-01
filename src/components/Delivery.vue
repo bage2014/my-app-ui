@@ -8,14 +8,14 @@
             :filter="companyFilter"
             color="black"
             item-text="name"
-            label="Company"            
+            label="快递公司"            
           ></v-autocomplete>
         </v-col>
         <v-col cols="7">
           <v-text-field
             color="black"
             v-model="companyNo"
-            label="No"
+            label="快递编号"
           ></v-text-field>
         </v-col>
         <v-col cols="2">
@@ -23,7 +23,7 @@
             color="success"
             @click="query"
           >
-            Query
+            查询
           </v-btn>
         </v-col>
       </v-row>
