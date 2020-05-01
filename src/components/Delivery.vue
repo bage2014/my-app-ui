@@ -1,7 +1,7 @@
 <template>
   <div>
       <v-row align="center">
-        <v-col cols="3">
+        <v-col cols="4">
           <v-autocomplete
             v-model="companyValue"
             :items="companys"
@@ -11,14 +11,14 @@
             label="快递公司"            
           ></v-autocomplete>
         </v-col>
-        <v-col cols="7">
+        <v-col cols="5">
           <v-text-field
             color="black"
             v-model="companyNo"
             label="快递编号"
           ></v-text-field>
         </v-col>
-        <v-col cols="2">
+        <v-col cols="3">
           <v-btn
             color="success"
             @click="query"

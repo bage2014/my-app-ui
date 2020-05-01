@@ -4,7 +4,7 @@ import axios from 'axios'
 const instance = axios.create({
   baseURL: 'https://116.198.163.212:8088/tutorials',
   // baseURL: 'https:/127.0.0.1:8088/tutorials',
-  timeout: 5000,
+  timeout: 30000,
   // headers: {'X-Custom-Header': 'foobar'}
 });
 

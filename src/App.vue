@@ -51,6 +51,6 @@
 
 <style scoped>
   .main-content {
-    margin-top: 60px;
+    margin-top: 32px;
   }
 </style>
