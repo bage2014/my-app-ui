@@ -117,24 +117,23 @@
         });
       },      
       query () {        
-        let that = this;
-        console.log(that.companyValue + "；" + that.companyNo);
-        axios.get('/delivery/companyPairs/load', {
-            firstName: 'Fred',
-            lastName: 'Flintstone'
-        }).then(function (response) {
+        let that = this
+        let expCode = null
+        for (let i = 0; i < that.companys.length; i++) {
+          const element = that.companys[i];
+          if(that.companyValue == element.name){
+            expCode = element.abbr
+            break
+          }
+        }
+        let queryCondition = {
+            expCode: expCode,
+            expNo: that.companyNo
+        }
+        axios.post('/delivery/query',queryCondition).then(function (response) {
           console.log(response);
           if(response.code === 200){
-            let result = [];
-            for (let i = 0; i < response.data.length; i++) {
-              const element = response.data[i];
-              result.push({ 
-                name: element.name, 
-                abbr: element.code, 
-                id: i+1 
-                });
-            }
-            that.companys = result;
+            
           }
         }).catch(function (error) {
             console.log(error);
