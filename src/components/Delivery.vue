@@ -41,7 +41,7 @@
           ></span>
         </template>-->
         <div class="py-4">
-          <h2 :class="`headline font-weight-light mb-4 ${item.color}--text`">{{item.time}}</h2>
+          <h4 :class="`headline font-weight-light mb-4 ${item.color}--text`">{{item.time}}</h4>
           <div>
             {{item.desc}}
           </div>
@@ -90,7 +90,7 @@
                 id: i+1 
                 });
             }
-            that.companys = result.reverse();
+            that.companys = result;
           }
         }).catch(function (error) {
             console.log(error);
@@ -122,7 +122,7 @@
                 desc: element.acceptStation
                 });
             }
-            that.timelines = result;
+            that.timelines = result.reverse();;
           }
         }).catch(function (error) {
             console.log(error);
