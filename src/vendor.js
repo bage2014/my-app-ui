@@ -1,2 +1,5 @@
-import Vue from 'vue'
-import ElementUI from 'element-ui'
+/* eslint-disable */
+import 'vue';
+import 'element-ui';
+import 'vue-router';
+import 'axios';

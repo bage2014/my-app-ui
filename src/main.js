@@ -1,11 +1,16 @@
-import Vue from 'vue'
-import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css'
-import App from './App.vue'
+import 'src/styles/theme.css';
 
-Vue.use(ElementUI)
+import Vue from 'vue';
+import ElementUI from 'element-ui';
+import App from './App.vue';
+import router from './router';
+import Http from './http';
 
-new Vue({
+Vue.use(ElementUI);
+Vue.use(Http);
+
+new Vue({ // eslint-disable-line
   el: '#app',
-  render: h => h(App)
-})
+  ...App,
+  router
+});

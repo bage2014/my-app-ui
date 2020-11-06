@@ -1,40 +1,69 @@
-const resolve = require('path').resolve
-const webpack = require('webpack')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const url = require('url')
-const publicPath = ''
+const {
+  resolve
+} = require('path');
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const url = require('url');
 
 module.exports = (options = {}) => ({
   entry: {
     vendor: './src/vendor',
-    index: './src/main.js'
+    app: './src/main.js'
   },
   output: {
     path: resolve(__dirname, 'dist'),
-    filename: options.dev ? '[name].js' : '[name].js?[chunkhash]',
-    chunkFilename: '[id].js?[chunkhash]',
-    publicPath: options.dev ? '/assets/' : publicPath
+    filename: options.dev ? '[name].js' : '[name].[chunkhash:7].js',
+    chunkFilename: '[id].[chunkhash:7].js',
+    publicPath: '/'
   },
   module: {
     rules: [{
         test: /\.vue$/,
-        use: ['vue-loader']
+        use: [
+          {
+            loader: 'vue-loader',
+            options: {
+              postcss: require('./postcss.config.js').plugins
+            }
+          }
+        ]
       },
       {
         test: /\.js$/,
-        use: ['babel-loader'],
+        use: [
+          {
+            loader: 'buble-loader',
+            query: {
+              objectAssign: 'Object.assign'
+            }
+          }
+        ],
         exclude: /node_modules/
       },
       {
+        test: /\.(js|vue)$/,
+        exclude: /node_modules/,
+        enforce: 'pre',
+        use: ['eslint-loader']
+      },
+      {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader', 'postcss-loader']
+        loader: options.dev
+          ? 'style-loader!css-loader?sourceMap!postcss-loader?sourceMap'
+          : ExtractTextPlugin.extract({
+            fallbackLoader: 'style-loader',
+            loader: 'css-loader?sourceMap!postcss-loader?sourceMap'
+          })
       },
       {
         test: /\.(png|jpg|jpeg|gif|eot|ttf|woff|woff2|svg|svgz)(\?.+)?$/,
         use: [{
           loader: 'url-loader',
           options: {
-            limit: 10000
+            limit: 10000,
+            name: 'assets/[name].[hash:7].[ext]'
           }
         }]
       }
@@ -45,14 +74,21 @@ module.exports = (options = {}) => ({
       names: ['vendor', 'manifest']
     }),
     new HtmlWebpackPlugin({
-      template: 'src/index.html'
-    })
+      template: 'index.tpl'
+    }),
+    new CopyWebpackPlugin([
+      { from: 'static', ignore: ['.gitkeep'] }
+    ]),
+    new webpack.ProgressPlugin(),
+    options.dev
+      ? new webpack.NoEmitOnErrorsPlugin()
+      : new ExtractTextPlugin('[name].[contenthash:7].css')
   ],
   resolve: {
     alias: {
-      '~': resolve(__dirname, 'src')
+      'src': resolve(__dirname, 'src')
     },
-    extensions: ['.js', '.vue', '.json', '.css']
+    extensions: ['.js', '.vue']
   },
   devServer: {
     host: '127.0.0.1',
@@ -66,9 +102,8 @@ module.exports = (options = {}) => ({
         }
       }
     },
-    historyApiFallback: {
-      index: url.parse(options.dev ? '/assets/' : publicPath).pathname
-    }
+    stats: 'errors-only',
+    historyApiFallback: true
   },
   devtool: options.dev ? '#eval-source-map' : '#source-map'
-})
+});
