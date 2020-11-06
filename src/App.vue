@@ -1,56 +1,30 @@
 <template>
-  <v-app id="inspire">
-    <nav-menu
-      v-model="drawer"
-      app
-    >
-    </nav-menu>
-
-    <app-bar >
-    </app-bar>
-
-    <v-content app >
-       <v-container class="main-content">
-         <router-view></router-view>  
-        </v-container>          
-    </v-content>
-    <v-footer
-      color="indigo"
-      app
-    >
-      <span class="white--text">&copy; 2020</span>
-    </v-footer>
-  </v-app>
+  <div id="app">
+    <img src="./assets/logo.png">
+    <div>
+      <el-button @click="startHacking">Start</el-button>
+    </div>
+  </div>
 </template>
 
 <script>
-
-  import NavMenu from '@/components/NavMenu'
-  import AppBar from '@/components/AppBar'
-  import { eventBus } from "./main.js";
-
-  export default {
-    props: {
-      source: String,
-    },
-    data: () => ({
-      drawer: null,
-    }),
-    name: 'App',
-    components: {
-      'nav-menu': NavMenu,
-      'app-bar': AppBar,
-    },
-    methods: {
-      toggleNavMenu: function(){
-        eventBus.$emit('toggleNavMenu', '')
-      },
+export default {
+  methods: {
+    startHacking () {
+      this.$notify({
+        title: 'It works!',
+        type: 'success',
+        message: 'We\'ve laid the ground work for you. It\'s time for you to build something epic!',
+        duration: 5000
+      })
     }
   }
+}
 </script>
 
-<style scoped>
-  .main-content {
-    margin-top: 48px;
-  }
+<style>
+#app {
+  font-family: Helvetica, sans-serif;
+  text-align: center;
+}
 </style>
