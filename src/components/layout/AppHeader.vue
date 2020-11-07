@@ -20,7 +20,7 @@
         <el-menu-item index="/about">关于</el-menu-item>
       </template>
     </el-menu>
-    <div class="header-user-menu" v-if="user.id">
+    <div class="header-user-menu" v-if="user.id && user.id !=100000 ">
       <el-dropdown class="header-user-menu__item" @command="handleUserCommand">
         <span class="el-dropdown-link">
           {{ user.name || 'Unkown User'}}

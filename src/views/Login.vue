@@ -118,6 +118,25 @@ export default {
     resetForm(formName) {
       this.$refs[formName].resetFields()
     }
+  },
+
+  mounted() {
+          // // mock 登录
+      const { usr } = {
+        usr: 'guest',
+        pwd: ''
+      }
+
+      return this.getUser(usr)
+        .then(() => {
+          this.$router.push('/')
+        })
+        .catch(err => {
+          this.$notify.error({
+            title: '失败',
+            message: err.message || '登录失败！'
+          })
+        })
   }
 }
 </script>

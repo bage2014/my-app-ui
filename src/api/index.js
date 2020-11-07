@@ -8,9 +8,14 @@ const users = {
     roles: ['USER', 'ADMIN']
   },
   codetrial: {
-    id: 100001,
+    id: 100002,
     name: 'Codetrial',
     roles: ['USER']
+  },
+  guest: {
+    id: 100000,
+    name: '[未登录]',
+    roles: ['GUEST']
   }
 }
 
