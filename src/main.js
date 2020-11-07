@@ -1,16 +1,20 @@
-import 'src/styles/theme.css';
+import Vue from 'vue'
+import { sync } from 'vuex-router-sync'
+import App from './App.vue'
+import router from './router/'
+import store from './store/'
+import './registerServiceWorker'
 
-import Vue from 'vue';
-import ElementUI from 'element-ui';
-import App from './App.vue';
-import router from './router';
-import Http from './http';
+import './registerElementUI'
 
-Vue.use(ElementUI);
-Vue.use(Http);
+import './styles/app/index.scss'
 
-new Vue({ // eslint-disable-line
-  el: '#app',
-  ...App,
-  router
-});
+Vue.config.productionTip = false
+
+sync(store, router)
+
+new Vue({
+  router,
+  store,
+  render: h => h(App)
+}).$mount('#app')

@@ -1,49 +1,57 @@
 {
   "name": "element-admin",
-  "description": "A Vue.js project",
+  "version": "1.0.3",
+  "description": "A dead simple but powerful vue admin with Vue CLI 3 and ElementUI.",
+  "keywords": [
+    "vue",
+    "vue-cli",
+    "vue-cli-plugin",
+    "element",
+    "element-ui",
+    "admin",
+    "dashboard"
+  ],
   "private": true,
   "scripts": {
-    "dev": "webpack-dev-server -d --inline --hot --env.dev",
-    "build": "rimraf dist && webpack -p --hide-modules --output-public-path /element-admin/",
-    "deploy": "npm run build && gh-pages -d dist"
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint",
+    "test:unit": "vue-cli-service test:unit",
+    "deploy": "npm run build && now ./dist -A ../now.json && now alias"
   },
   "dependencies": {
-    "axios": "^0.15.3",
-    "element-ui": "^1.1.2",
-    "vue": "^2.1.8",
-    "vue-router": "^2.1.1"
+    "element-ui": "^2.4.11",
+    "register-service-worker": "^1.5.2",
+    "vue": "^2.5.17",
+    "vue-router": "^3.0.1",
+    "vuex": "^3.0.1",
+    "vuex-router-sync": "^5.0.0"
   },
-  "engines": {
-    "node": ">=6"
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^3.2.0",
+    "@vue/cli-plugin-eslint": "^3.2.0",
+    "@vue/cli-plugin-pwa": "^3.2.0",
+    "@vue/cli-plugin-unit-jest": "^3.2.0",
+    "@vue/cli-service": "^3.2.0",
+    "@vue/eslint-config-standard": "^4.0.0",
+    "@vue/test-utils": "^1.0.0-beta.20",
+    "babel-core": "7.0.0-bridge.0",
+    "babel-eslint": "^10.0.1",
+    "babel-jest": "^23.6.0",
+    "eslint": "^5.8.0",
+    "eslint-plugin-vue": "^5.0.0-0",
+    "node-sass": "^4.9.0",
+    "sass-loader": "^7.0.1",
+    "vue-template-compiler": "^2.5.17"
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:ElementUI/element-admin.git"
+    "url": "git+https://github.com/codetrial/element-admin.git"
   },
-  "homepage": "https://elementui.github.io/element-admin/",
   "bugs": {
-    "url": "https://github.com/ElementUI/element-admin/issues"
+    "url": "https://github.com/codetrial/element-admin/issues"
   },
-  "devDependencies": {
-    "buble-loader": "^0.4.0",
-    "copy-webpack-plugin": "^4.0.1",
-    "css-loader": "^0.26.1",
-    "eslint": "^3.12.2",
-    "eslint-config-elemefe": "^0.1.1",
-    "eslint-loader": "^1.6.1",
-    "eslint-plugin-vue": "^1.0.0",
-    "extract-text-webpack-plugin": "beta",
-    "file-loader": "^0.9.0",
-    "gh-pages": "^0.12.0",
-    "html-webpack-plugin": "^2.24.1",
-    "postcss-loader": "^1.2.1",
-    "postcss-salad": "^1.0.8",
-    "rimraf": "^2.5.4",
-    "style-loader": "^0.13.1",
-    "url-loader": "^0.5.7",
-    "vue-loader": "^10.0.0",
-    "vue-template-compiler": "^2.1.8",
-    "webpack": "beta",
-    "webpack-dev-server": "beta"
-  }
+  "homepage": "https://github.com/codetrial/element-admin#readme",
+  "author": "felixpy",
+  "license": "MIT"
 }
