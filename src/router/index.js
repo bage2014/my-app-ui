@@ -4,6 +4,7 @@ import AppLayout from '@/components/layout/AppLayout.vue'
 import BlankLayout from '@/components/layout/BlankLayout.vue'
 import Home from '@/views/Home.vue'
 import Login from '@/views/Login.vue'
+import LoginGuest from '@/views/LoginGuest.vue'
 import { Forbidden, NotFound, InternalServerError } from '@/components/errors'
 
 import UserInterceptor from './interceptors/user'
@@ -18,7 +19,18 @@ const router = new Router({
     {
       path: '/login',
       component: BlankLayout,
-      children: [{ path: '', name: 'login', component: Login }]
+      children: [
+        {
+          path: '',
+          name: 'login',
+          component: Login
+        },
+        {
+          path: '/login/guest',
+          name: 'loginGuest',
+          component: LoginGuest
+        }
+      ]
     },
     {
       path: '/',

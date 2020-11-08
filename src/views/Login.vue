@@ -2,17 +2,18 @@
   <div class="login">
     <el-card class="login-card">
       <div slot="header">
-        <span>示例系统</span>
-        <div class="pull-right">
-          <a target="_blank" href="https://codetrial.github.io">@Codetrial</a>
+        <span>注册登录</span>
+        <!--<div class="pull-right">
+          <a target="_blank" href="https://codetrial.github.io"></a>
         </div>
+        -->
       </div>
       <div class="login-form">
         <el-form :model="formValues" status-icon :rules="rules" ref="loginForm">
           <el-form-item prop="usr">
             <el-input
               type="text"
-              placeholder="普通用户 codetrial / 管理员 admin"
+              placeholder="请输入账号"
               v-model="formValues.usr"
               autocomplete="off"
             >
@@ -22,7 +23,7 @@
           <el-form-item prop="pwd">
             <el-input
               type="password"
-              placeholder="请输入任意密码"
+              placeholder="请输入密码"
               v-model="formValues.pwd"
               autocomplete="off"
             >
@@ -121,22 +122,22 @@ export default {
   },
 
   mounted() {
-          // // mock 登录
-      const { usr } = {
-        usr: 'guest',
-        pwd: ''
-      }
+      //     // // mock 登录
+      // const { usr } = {
+      //   usr: 'guest',
+      //   pwd: ''
+      // }
 
-      return this.getUser(usr)
-        .then(() => {
-          this.$router.push('/')
-        })
-        .catch(err => {
-          this.$notify.error({
-            title: '失败',
-            message: err.message || '登录失败！'
-          })
-        })
+      // return this.getUser(usr)
+      //   .then(() => {
+      //     this.$router.push('/')
+      //   })
+      //   .catch(err => {
+      //     this.$notify.error({
+      //       title: '失败',
+      //       message: err.message || '登录失败！'
+      //     })
+      //   })
   }
 }
 </script>

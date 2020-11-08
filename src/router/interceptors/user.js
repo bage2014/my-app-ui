@@ -7,7 +7,7 @@ export default function checkUser(to, from, next) {
     if (state.user.id) {
       next()
     } else {
-      next('/login')
+      next('/login/guest')
     }
   } else {
     next()

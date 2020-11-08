@@ -8,7 +8,7 @@
       mode="horizontal"
     >
       <el-menu-item index="/">首页</el-menu-item>
-      <template v-if="user.id">
+      <!-- <template v-if="user.id">
         <el-submenu index="/example" :show-timeout="300" :hide-timeout="0">
           <template slot="title">示例模块</template>
           <el-menu-item index="/example">列表页</el-menu-item>
@@ -18,7 +18,7 @@
           <el-menu-item index="/500">错误 - 500 服务器内部错误</el-menu-item>
         </el-submenu>
         <el-menu-item index="/about">关于</el-menu-item>
-      </template>
+      </template> -->
     </el-menu>
     <div class="header-user-menu" v-if="user.id && user.id !=100000 ">
       <el-dropdown class="header-user-menu__item" @command="handleUserCommand">

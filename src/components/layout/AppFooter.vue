@@ -1,6 +1,6 @@
 <template>
   <div class="footer">
-    <div class="footer-copyright">MIT Licensed | Copyright © 2018-present Felix Yang</div>
+    <div class="footer-copyright">Copyright © 2020-lrh</div>
   </div>
 </template>
 
