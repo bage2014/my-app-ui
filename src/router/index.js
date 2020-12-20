@@ -16,6 +16,22 @@ const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
+    
+    {
+      path: '/modules',
+      component: AppLayout,
+      children: [
+        {
+          path: '/modules/apps',
+          name: 'Apps',
+          meta: {
+            requiresUser: true
+          },
+          component: () =>
+          import('@/views/modules/apps/Main.vue')
+        }
+      ]
+    },
     {
       path: '/login',
       component: BlankLayout,

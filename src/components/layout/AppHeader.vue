@@ -8,10 +8,11 @@
       mode="horizontal"
     >
       <el-menu-item index="/">首页</el-menu-item>
+      <el-menu-item index="/modules/apps">应用</el-menu-item>
       <!-- <template v-if="user.id">
         <el-submenu index="/example" :show-timeout="300" :hide-timeout="0">
           <template slot="title">示例模块</template>
-          <el-menu-item index="/example">列表页</el-menu-item>
+          0 vbb
           <el-menu-item index="/example/new">表单页</el-menu-item>
           <el-menu-item index="/example/admin-authorized">错误 - 403 无权限（管理员可见）</el-menu-item>
           <el-menu-item index="/example/some-page">错误 - 404 页面找不到</el-menu-item>
