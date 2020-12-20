@@ -13,7 +13,8 @@ import RoleInterceptor from './interceptors/role'
 Vue.use(Router)
 
 const router = new Router({
-  mode: 'history',
+  // mode: 'history',
+  mode: 'hash',
   base: process.env.BASE_URL,
   routes: [
     
