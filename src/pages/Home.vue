@@ -2,8 +2,6 @@
 import { ref } from "vue";
 import { ElMessage } from 'element-plus'
 
-defineProps<{ msg: string }>();
-
 const count = ref(0);
 const input = ref("element-plus");
 
@@ -12,11 +10,10 @@ const curDate = ref('')
 const toast = () => {
   ElMessage.success('Hello')
 }
+
 </script>
 
 <template>
-  <h1>{{ msg }}</h1>
-
   <p>
     See
     <a href="https://element-plus.org" target="_blank">element-plus</a> for
