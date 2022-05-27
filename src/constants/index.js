@@ -1,5 +1,0 @@
-export const RESPONSE_STATUS = {
-  SUCCESS: '1',
-  SERVER_ERROR: '1000',
-  NETWORK_ERROR: '1001'
-}
