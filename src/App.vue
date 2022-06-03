@@ -4,8 +4,6 @@
     <div style="display: flex">
       <BaseSide />
       <div>
-        <img alt="Vue logo" class="element-plus-logo" src="./assets/logo.png" />
-
         <!-- 路由出口 -->
         <!-- 路由匹配到的组件将渲染在这里 -->
         <router-view></router-view>
