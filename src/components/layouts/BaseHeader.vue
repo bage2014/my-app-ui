@@ -9,5 +9,6 @@
     <el-menu-item index="1"><router-link to="/">Tutorials</router-link></el-menu-item>
     <el-menu-item index="2"><router-link to="/demo">Demo</router-link></el-menu-item>
     <el-menu-item index="3"><router-link to="/test">Test</router-link></el-menu-item>
+    <el-menu-item index="4"><router-link to="/activities">活动列表</router-link></el-menu-item>
   </el-menu>
 </template>
