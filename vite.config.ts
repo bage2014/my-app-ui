@@ -16,8 +16,17 @@ import {
 
 const pathSrc = path.resolve(__dirname, 'src')
 
+const corsConfig = {
+  cors: {
+    origin: '*',
+    methods: 'GET, POST, PUT, DELETE',
+    allowedHeaders: 'Content-Type, Authorization'
+  }
+}
+
 // https://vitejs.dev/config/
 export default defineConfig({
+  ...corsConfig,
   resolve: {
     alias: {
       '~/': `${pathSrc}/`,
