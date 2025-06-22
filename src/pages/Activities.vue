@@ -2,13 +2,12 @@
   <div class="activities-container">
     <el-row :gutter="20">
         <el-col :span="24" v-for="activity in currentActivities" :key="activity.id">
-        <el-card shadow="hover" class="custom-card" @click="handleViewDetails(activity.id)">
-          <div class="time-top-left">{{ activity.time }}</div>
-          <p><strong>描述:</strong> {{ activity.description }}</p>
-          <div class="creator-bottom-right">创建人: {{ activity.creator }}</div>
-        </el-card>
-      </el-col>
-
+          <div class="activity-item" @click="handleViewDetails(activity.id)">
+            <div class="time-top-left">{{ activity.time }}</div>
+            <p><strong></strong> {{ activity.description }}</p>
+            <div class="creator-bottom-right">{{ activity.creator }}</div>
+          </div>
+        </el-col>
     </el-row>
     <el-pagination
       @current-change="handleCurrentChange"
@@ -24,6 +23,7 @@
 <script setup>
 import { ref, onMounted, computed } from 'vue';
 import { ElMessage } from 'element-plus';
+import API_BASE_URL from '../api/config';
 
 const activities = ref([]);
 const currentPage = ref(1);
@@ -46,7 +46,7 @@ const handleCurrentChange = async (val) => {
 
 const fetchActivities = async () => {
   try {
-    const response = await fetch(`http://127.0.0.1:8080/activities?page=${currentPage.value - 1}&size=${pageSize.value}`);
+    const response = await fetch(`${API_BASE_URL}activities?page=${currentPage.value - 1}&size=${pageSize.value}`);
     if (!response.ok) {
       throw new Error('网络响应失败');
     }
@@ -82,20 +82,20 @@ onMounted(async () => {
   justify-content: center;
 }
 .custom-card {
-  position: relative;
-  padding: 20px;
+  display: none;
+}
+.activity-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .time-top-left {
-  position: absolute;
-  top: 10px;
-  left: 20px;
+  position: static;
   color: #666;
   font-size: 12px;
 }
 .creator-bottom-right {
-  position: absolute;
-  bottom: 10px;
-  right: 20px;
+  position: static;
   color: #666;
   font-size: 12px;
 }
