@@ -1,6 +1,14 @@
 <template>
   <div>
     <h1>视频列表</h1>
+    <el-row justify="end">
+      <el-col>
+        <el-input v-model="keyword" placeholder="请输入搜索关键词" @keyup.enter="fetchData()" style="width: 100px;" />
+      </el-col>
+      <el-col>
+        <el-button @click="fetchData()">搜索</el-button>
+      </el-col>
+    </el-row>
     <el-table :data="videoList" style="width: 100%">
       <el-table-column prop="id" label="ID" />
       <el-table-column label="Logo">
@@ -13,6 +21,11 @@
           <el-button @click="openDetail(row)">查看详情</el-button>
         </template>
       </el-table-column>
+      <el-table-column prop="action" label="播放">
+        <template #default="{ row }">
+          <el-button @click="playVideo(row.url)">播放</el-button>
+        </template>
+      </el-table-column>
     </el-table>
     <el-pagination
       @current-change="fetchData"
@@ -21,7 +34,7 @@
       :total="totalElements"
       layout="prev, pager, next"
     />
-    <el-dialog v-model="dialogVisible" title="视频详情" width="50%" center>
+    <el-dialog v-model="dialogVisible" title="视频详情" width="80%" height="60%" center>
       <div class="detail-container">
         <video ref="videoPlayer" controls :src="currentVideo.url.trim()"></video>
       </div>
@@ -38,6 +51,7 @@
 import { ref, onMounted } from 'vue';
 import API_BASE_URL from '../api/config';
 import Hls from 'hls.js';
+import { useRouter } from 'vue-router';
 
 const videoList = ref([]);
 const pageable = ref({});
@@ -49,11 +63,11 @@ const number = ref(0);
 const dialogVisible = ref(false);
 const currentVideo = ref({});
 const videoPlayer = ref(null);
+const keyword = ref('');
 
 const fetchData = async (page = 1) => {
   try {
-    // 这里需要替换为实际的视频列表接口
-    const response = await fetch(`${API_BASE_URL}m3u/query?size=5&keyword=&page=${page - 1}`);
+    const response = await fetch(`${API_BASE_URL}m3u/query?size=5&keyword=${keyword.value}&page=${page - 1}`);
     const data = await response.json();
     videoList.value = data.content;
     pageable.value = data.pageable;
@@ -90,6 +104,22 @@ const openDetail = (row) => {
   }
 };
 
+const router = useRouter();
+
+const playVideo = (url, name) => {
+  const newWindow = window.open(``, '_blank');
+  if (newWindow) {
+    newWindow.location.href = `/video-player?url=${encodeURIComponent(url)}&name=${encodeURIComponent(name)}`;
+  }
+  // 移除多余的路由跳转代码
+  // router.push({
+  //   path: '/video-player',
+  //   query: {
+  //     url: encodeURIComponent(url),
+  //     name: encodeURIComponent(name)
+  //   }
+  // });
+};
 onMounted(() => {
   fetchData();
 });

@@ -5,6 +5,8 @@ import Home from "./pages/Home.vue";
 import Test from "./pages/Test.vue";
 import Activities from "./pages/Activities.vue";
 import VideoList from "./pages/VideoList.vue";
+import SchoolList from "./pages/SchoolList.vue";
+import VideoPlayer from "./pages/VideoPlayer.vue";  
 
 // 定义一些路由
 // 每个路由都需要映射到一个组件。
@@ -15,6 +17,8 @@ const routes = [
   { path: '/test', component: Test },
   { path: '/activities', component: Activities },
   { path: '/video-list', component: VideoList },
+  { path: '/school-list', component: SchoolList },
+  { path: '/video-player', component: VideoPlayer },
 ]
 
 // 3. 创建路由实例并传递 `routes` 配置
