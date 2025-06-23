@@ -1,7 +1,7 @@
 <template>
   <el-config-provider namespace="ep">
     <BaseHeader />
-    <div style="display: flex">
+    <div >
       <BaseSide />
       <div>
         <!-- 路由出口 -->
