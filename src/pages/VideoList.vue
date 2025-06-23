@@ -1,15 +1,16 @@
 <template>
-    <el-table :data="content" style="width: 100%">
+  <div>
+    <h1>视频列表</h1>
+    <el-table :data="videoList" style="width: 100%">
       <el-table-column prop="id" label="ID" />
-      <el-table-column prop="title" label="视频标题" />
       <el-table-column label="Logo">
         <template #default="{ row }">
-          <img :src="row.logo" alt="Logo" style="width: 50px; height: 50px;">
+          <img :src="row.logo.trim()" alt="Logo" style="width: 50px; height: 50px;">
         </template>
       </el-table-column>
       <el-table-column label="操作">
         <template #default="{ row }">
-          <el-button @click="navigateToVideoPlayer(row.url)">播放</el-button>
+          <el-button @click="openDetail(row)">查看详情</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -20,33 +21,41 @@
       :total="totalElements"
       layout="prev, pager, next"
     />
-    <el-dialog v-model="dialogVisible" title="视频播放" :modal-append-to-body="true">
-      <video ref="videoPlayer" controls :src="currentVideoUrl"></video>
+    <el-dialog v-model="dialogVisible" title="视频详情" width="50%" center>
+      <div class="detail-container">
+        <video ref="videoPlayer" controls :src="currentVideo.url.trim()"></video>
+      </div>
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button @click="dialogVisible = false">关闭</el-button>
+        </span>
+      </template>
     </el-dialog>
+  </div>
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue';
-import Hls from 'hls.js';
 import API_BASE_URL from '../api/config';
-import { ElDialog, ElTable, ElTableColumn, ElPagination, ElButton } from 'element-plus';
+import Hls from 'hls.js';
 
-const videoPlayer = ref(null);
-const content = ref([]);
+const videoList = ref([]);
 const pageable = ref({});
 const totalPages = ref(0);
 const totalElements = ref(0);
 const last = ref(false);
 const size = ref(0);
 const number = ref(0);
-const currentVideoUrl = ref('');
 const dialogVisible = ref(false);
+const currentVideo = ref({});
+const videoPlayer = ref(null);
 
 const fetchData = async (page = 1) => {
   try {
-    const response = await fetch(`${API_BASE_URL}m3u/query?size=10&keyword=&page=${page - 1}`);
+    // 这里需要替换为实际的视频列表接口
+    const response = await fetch(`${API_BASE_URL}m3u/query?size=5&keyword=&page=${page - 1}`);
     const data = await response.json();
-    content.value = data.content;
+    videoList.value = data.content;
     pageable.value = data.pageable;
     totalPages.value = data.totalPages;
     totalElements.value = data.totalElements;
@@ -58,19 +67,23 @@ const fetchData = async (page = 1) => {
   }
 };
 
-const playVideo = (url) => {
-  currentVideoUrl.value = url;
+const openDetail = (row) => {
+  currentVideo.value = {
+    ...row,
+    logo: row.logo.trim(),
+    url: row.url.trim()
+  };
   dialogVisible.value = true;
   if (videoPlayer.value && Hls.isSupported()) {
     const video = videoPlayer.value;
     const hls = new Hls();
-    hls.loadSource(url);
+    hls.loadSource(currentVideo.value.url.trim());
     hls.attachMedia(video);
     hls.on(Hls.Events.MANIFEST_PARSED, () => {
       video.play();
     });
   } else if (videoPlayer.value && videoPlayer.value.canPlayType('application/vnd.apple.mpegurl')) {
-    videoPlayer.value.src = url;
+    videoPlayer.value.src = currentVideo.value.url.trim();
     videoPlayer.value.addEventListener('loadedmetadata', () => {
       videoPlayer.value.play();
     });
@@ -80,20 +93,18 @@ const playVideo = (url) => {
 onMounted(() => {
   fetchData();
 });
-
-const navigateToVideoPlayer = (url) => {
-  console.log('传入的视频 URL:', url);
-  playVideo(url);
-};
 </script>
 
 <style scoped>
-el-dialog {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  margin-top: 0 !important;
+.detail-container {
+  padding: 10px;
+  margin: 0 auto;
+  text-align: center;
 }
-
+.el-dialog__header {
+  background-color: #f0f2f5;
+}
+.el-dialog__title {
+  font-weight: bold;
+}
 </style>

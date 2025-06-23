@@ -4,7 +4,8 @@ import Demo from "./pages/Demo.vue";
 import Home from "./pages/Home.vue";
 import Test from "./pages/Test.vue";
 import Activities from "./pages/Activities.vue";
-import TVLive from "./pages/TVLive.vue";
+import VideoList from "./pages/VideoList.vue";
+
 // 定义一些路由
 // 每个路由都需要映射到一个组件。
 // 我们后面再讨论嵌套路由。
@@ -13,7 +14,7 @@ const routes = [
   { path: '/demo', component: Demo },
   { path: '/test', component: Test },
   { path: '/activities', component: Activities },
-  { path: '/tv-live', component: TVLive },
+  { path: '/video-list', component: VideoList },
 ]
 
 // 3. 创建路由实例并传递 `routes` 配置

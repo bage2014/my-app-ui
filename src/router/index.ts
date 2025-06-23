@@ -1,12 +1,13 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
-import TVLive from '../pages/TVLive.vue';
+
 import VideoPlayer from '@/pages/VideoPlayer.vue';
+import VideoList from '../pages/VideoList.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
-    path: '/tv-live',
-    name: 'TVLive',
-    component: TVLive
+    path: '/video-list',
+    name: 'VideoList',
+    component: VideoList
   },
   {
     path: '/video-player',
