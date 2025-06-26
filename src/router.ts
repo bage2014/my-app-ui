@@ -6,9 +6,10 @@ import Test from "./pages/Test.vue";
 import Activities from "./pages/Activities.vue";
 import VideoList from "./pages/VideoList.vue";
 import SchoolList from "./pages/SchoolList.vue";
-import VideoPlayer from "./pages/VideoPlayer.vue";  
+import VideoPlayer from "./pages/VideoPlayer.vue";
+import MapTrajectory from "./pages/MapTrajectory.vue";
 
-// 定义一些路由
+// 定义一些路由，新增地图轨迹页面
 // 每个路由都需要映射到一个组件。
 // 我们后面再讨论嵌套路由。
 const routes = [
@@ -19,6 +20,7 @@ const routes = [
   { path: '/video-list', component: VideoList },
   { path: '/school-list', component: SchoolList },
   { path: '/video-player', component: VideoPlayer },
+  { path: '/map-trajectory', component: MapTrajectory },
 ]
 
 // 3. 创建路由实例并传递 `routes` 配置

@@ -11,5 +11,6 @@
     <el-menu-item index="3"><router-link to="/video-list">视频列表</router-link></el-menu-item>
     <el-menu-item index="4"><router-link to="/school-list">学校列表</router-link></el-menu-item>
     <el-menu-item index="5"><router-link to="/video-player">视频播放器</router-link></el-menu-item>
+    <el-menu-item index="6"><router-link to="/map-trajectory">地图轨迹</router-link></el-menu-item>
   </el-menu>
 </template>
