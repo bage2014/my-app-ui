@@ -8,14 +8,14 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue'
+import { onMounted, onUnmounted, ref } from 'vue'
 import API_BASE_URL from '../api/config'
 import { ElMessage } from 'element-plus'
 
 const clickedPoint = ref(null)
 const checkMapLoad = ref(null)
 
-const savePointToBackend = async (point, time) => {
+const savePointToBackend = async (point, time, address) => {
   try {
     const response = await fetch(`${API_BASE_URL}trajectorys/save`, {
       method: 'POST',
@@ -25,7 +25,8 @@ const savePointToBackend = async (point, time) => {
       body: JSON.stringify({
         latitude: point.lat,
         longitude: point.lng,
-        time: time
+        time: time,
+        address: address
       }),
     });
 
@@ -47,15 +48,29 @@ onMounted(() => {
       map.centerAndZoom(centerPoint, 13)
 
       map.addEventListener('click', (e) => {
+        // 阻止默认的信息窗口弹出
+        // e.preventDefault();
+        // e.stopPropagation();
+
         clickedPoint.value = {
           lng: e.point.lng,
           lat: e.point.lat
         }
         const now = new Date().toISOString()
-        savePointToBackend(e.point, now)
+        const geoc = new window.BMap.Geocoder();
+        geoc.getLocation(e.point, (rs) => {
+          const address = rs.address;
+          savePointToBackend(e.point, now, address);
+        });
       })
     }
   }, 100)
+})
+
+onUnmounted(() => {
+  if (checkMapLoad.value) {
+    clearInterval(checkMapLoad.value)
+  }
 })
 </script>
 
