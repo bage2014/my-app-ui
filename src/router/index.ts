@@ -18,7 +18,7 @@ const routes: Array<RouteRecordRaw> = [
     path: '/video-list',
     name: 'VideoList',
     component: VideoList
-  }
+  },
 ];
 
 const router = createRouter({

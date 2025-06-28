@@ -22,6 +22,7 @@ let baiduMapInitialized = false;
 
 // 百度地图初始化回调函数
 window.initBaiduMap = function() {
+  console.log('initBaiduMap-2');
   baiduMapInitialized = true;
 };
 
