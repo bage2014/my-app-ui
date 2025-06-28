@@ -42,8 +42,11 @@ const currentPage = ref(1)
 const pageSize = ref(10)
 const totalPages = ref(1)
 const map = ref(null)
-const startDate = ref(null)
-const endDate = ref(null)
+const today = new Date()
+const sevenDaysAgo = new Date()
+sevenDaysAgo.setDate(today.getDate() - 7)
+const startDate = ref(sevenDaysAgo)
+const endDate = ref(today)
 
 // 移除随机生成坐标点函数
 
