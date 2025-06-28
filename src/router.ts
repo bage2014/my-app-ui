@@ -8,6 +8,7 @@ import VideoList from "./pages/VideoList.vue";
 import SchoolList from "./pages/SchoolList.vue";
 import VideoPlayer from "./pages/VideoPlayer.vue";
 import MapTrajectory from "./pages/MapTrajectory.vue";
+import TrajectoryCheckpoint from "./pages/TrajectoryCheckpoint.vue";
 
 // 定义一些路由，新增地图轨迹页面
 // 每个路由都需要映射到一个组件。
@@ -21,6 +22,7 @@ const routes = [
   { path: '/school-list', component: SchoolList },
   { path: '/video-player', component: VideoPlayer },
   { path: '/map-trajectory', component: MapTrajectory },
+  { path: '/trajectory-checkpoint', component: TrajectoryCheckpoint },
 ]
 
 // 3. 创建路由实例并传递 `routes` 配置
