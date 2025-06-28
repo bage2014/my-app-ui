@@ -1,25 +1,35 @@
 <template>
-  <div>
-    <el-date-picker
-      v-model="dateRange"
-      type="daterange"
-      range-separator="至"
-      start-placeholder="开始日期"
-      end-placeholder="结束日期"
-      @change="loadTrajectoryData"
-      size="large"
-    />
-    <el-pagination
-      v-model:current-page="currentPage"
-      v-model:page-size="pageSize"
-      :total="totalPages * pageSize"
-      layout="prev, pager, next, sizes"
-      :page-sizes="[10, 20, 50, 100]"
-      @current-change="loadTrajectoryData"
-      @size-change="loadTrajectoryData"
-    />
+  <el-card class="filter-card">
+    <div class="search-container">
+      <div class="date-pickers">
+        <el-date-picker
+          v-model="startDate"
+          type="date"
+          placeholder="开始日期"
+          @change="loadTrajectoryData"
+          size="large"
+        />
+        <el-date-picker
+          v-model="endDate"
+          type="date"
+          placeholder="结束日期"
+          @change="loadTrajectoryData"
+          size="large"
+        />
+      </div>
+      <el-pagination
+        v-model:current-page="currentPage"
+        v-model:page-size="pageSize"
+        :total="totalPages * pageSize"
+        layout="prev, pager, next, sizes"
+        :page-sizes="[10, 20, 50, 100]"
+        @current-change="loadTrajectoryData"
+        @size-change="loadTrajectoryData"
+        class="center-pagination"
+      />
+    </div>
     <div id="map" style="width: 100%; height: 500px;"></div>
-  </div>
+  </el-card>
 </template>
 
 <script setup>
@@ -32,12 +42,25 @@ const currentPage = ref(1)
 const pageSize = ref(10)
 const totalPages = ref(1)
 const map = ref(null)
-const dateRange = ref([])
+const startDate = ref(null)
+const endDate = ref(null)
 
 // 移除随机生成坐标点函数
 
 const createPoint = (item) => {
   return new window.BMap.Point(item.longitude, item.latitude)
+}
+
+const formatDate = (date) => {
+  if (!date) return '';
+  const d = new Date(date);
+  const year = d.getFullYear();
+  const month = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  const hours = String(d.getHours()).padStart(2, '0');
+  const minutes = String(d.getMinutes()).padStart(2, '0');
+  const seconds = String(d.getSeconds()).padStart(2, '0');
+  return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
 }
 
 const loadTrajectoryData = async () => {
@@ -47,10 +70,16 @@ const loadTrajectoryData = async () => {
     map.value.clearOverlays()
     // 构建查询参数
     let queryParams = `page=${currentPage.value - 1}&size=${pageSize.value}`
-    if (dateRange.value && dateRange.value.length === 2) {
-      const startDate = new Date(dateRange.value[0]).toISOString()
-      const endDate = new Date(dateRange.value[1]).toISOString()
-      queryParams += `&startTime=${startDate}&endTime=${endDate}`
+    if (startDate.value && endDate.value) {
+      const start = formatDate(startDate.value)
+      const end = formatDate(endDate.value)
+      queryParams += `&startTime=${start}&endTime=${end}`
+    } else if (startDate.value) {
+      const start = formatDate(startDate.value)
+      queryParams += `&startTime=${start}`
+    } else if (endDate.value) {
+      const end = formatDate(endDate.value)
+      queryParams += `&endTime=${end}`
     }
     // 从后台请求数据
     const response = await fetch(`${API_BASE_URL}trajectorys/query?${queryParams}`)
@@ -118,10 +147,32 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
+.search-container {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.date-pickers {
+  display: flex;
+  gap: 10px;
+}
+
+.filter-card {
+  margin-bottom: 20px;
+}
 #map {
   margin-top: 20px;
 }
 .el-input.is-active.el-input__inner, .el-input__inner:focus{
   border-color: #ABB3CC;
+}
+.center-pagination {
+  display: flex;
+  align-items: center;
+}
+.map-card {
+  margin-top: 20px;
 }
 </style>

@@ -2,14 +2,8 @@ import { createApp } from "vue";
 import App from "./App.vue";
 import router from "./router";
 
-
-// import "~/styles/element/index.scss";
-
-// import ElementPlus from "element-plus";
-// import all element css, uncommented next line
-// import "element-plus/dist/index.css";
-
-// or use cdn, uncomment cdn link in `index.html`
+import ElementPlus from "element-plus";
+import "element-plus/dist/index.css";
 
 import "~/styles/index.scss";
 import 'uno.css'
@@ -28,6 +22,6 @@ window.initBaiduMap = function() {
 
 // 5. 创建并挂载根实例
 const app = createApp(App);
-// app.use(ElementPlus);
-app.use(router) //确保 _use_ 路由实例使 整个应用支持路由。
+app.use(ElementPlus);
+app.use(router); //确保 _use_ 路由实例使 整个应用支持路由。
 app.mount("#app");

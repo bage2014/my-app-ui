@@ -56,11 +56,11 @@ onMounted(() => {
           lng: e.point.lng,
           lat: e.point.lat
         }
-        const now = new Date().toISOString()
+        const date = new Date().toISOString();
         const geoc = new window.BMap.Geocoder();
         geoc.getLocation(e.point, (rs) => {
           const address = rs.address;
-          savePointToBackend(e.point, now, address);
+          savePointToBackend(e.point, date, address);
         });
       })
     }
